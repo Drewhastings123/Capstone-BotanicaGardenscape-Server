@@ -1,2 +1,2 @@
 # Capstone-BotanicaGardenscape-Server
-Botanic Gardenscape - FloraForma extraordinair - Server
+Botanic Gardenscape - FloraForma extraordinaire - Server
