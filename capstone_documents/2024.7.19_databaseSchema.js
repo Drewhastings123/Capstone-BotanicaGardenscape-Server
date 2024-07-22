@@ -90,7 +90,7 @@ CREATE TABLE address(
     state VARCHAR(64) 
 );
 
-CREATE TABLE user_desc(
+CREATE TABLE user(
   id UUID PRIMARY KEY,
   
   firstname VARCHAR(64) NOT NULL,

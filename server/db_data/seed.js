@@ -10,9 +10,22 @@ const { seed_sun_requirement } = require("./sun_requirement.js");
 const { seed_user_role } = require("./user_role.js");
 const { seed_water_requirement } = require("./water_requirement.js");
 const { seed_zone } = require("./zone.js");
+const { seed_delete_dependent_data } = require("./delete_dependent_data.js");
 const { seed_user } = require("./user.js");
 
 const seed = async () => {
+
+
+
+  // Function exists - may be out of date
+  // await seed_delete_dependent_data();
+  // Design Decision (7/22):  
+  //   Use Prisma onDelete: Cascade and OnUpdate: Cascade 
+  //   for foreign relation deletion management
+  //   so the DB will manage the dependency delete order.
+  //   This is good for development and expediency, may be a bad decision
+  //   for production environment application
+
 
   const [growth, life, plant_sz, plant_st, shpe, soil, sun, user, water, zn] = [
     await seed_growth_habit(),
@@ -27,40 +40,33 @@ const seed = async () => {
     await seed_zone(),
   ];
 
-
-   zn.forEach((zne) => {console.log(`zone: ${zne}`)});
-  console.log(`user_role: ${user}`);
-
   const [customer1, customer2, customer3] = [
     seed_user({
       email: "monty@smallGardens.com",
-      username: "monty@don",
       password: "theMonty",
       firstname: "Monty",
       lastname: "Don",
-      zone_id: zn[5].zone_id,
-      user_role_id: user[0].user_role_id,
+      zone_id: zn[5].id,
+      user_role_id: user[1].id,
     }),
     seed_user({
       email: "renaee@highlandGardens.com",
-      username: "renaee@highlands",
       password: "theHighlands",
       firstname: "Renee",
       lastname: "RayOfSunshine",
-      zone_id: zn[8],
-      user_role_id: user[0],
+      zone_id: zn[8].id,
+      user_role_id: user[0].id,
     }),
     seed_user({
       email: "patti@plumnCreekGardens.com",
-      username: "patti@plum",
       password: "thePlum",
       firstname: "Patti",
       lastname: "Plum",
-      zone_id: zn[15],
-      user_role_id: user[1],
+      zone_id: zn[15].id,
+      user_role_id: user[1].id,
     }),
   ];
-
+  
   // TO DO Create some
   // development data
   // plants

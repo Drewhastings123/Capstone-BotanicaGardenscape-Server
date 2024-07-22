@@ -16,7 +16,6 @@ const registerQuery = async ({
     data: {
       id: uuid.v4(),
       email,
-      username,
       password: hashPassword,
       firstname,
       lastname,
