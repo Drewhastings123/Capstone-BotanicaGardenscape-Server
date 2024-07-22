@@ -153,8 +153,8 @@ model user {
   email        String   @unique @db.VarChar(64)
   user_role_id String   @db.Uuid
   zone_id      String    @db.Uuid
-  zone         zone      @relation(fields: [zone_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  user_role    user_role @relation(fields: [user_role_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  zone         zone      @relation(fields: [zone_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_role    user_role @relation(fields: [user_role_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   address      address[]
   garden       garden[]
 }

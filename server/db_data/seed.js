@@ -14,9 +14,7 @@ const { seed_delete_dependent_data } = require("./delete_dependent_data.js");
 const { seed_user } = require("./user.js");
 
 const seed = async () => {
-
-  await seed_delete_dependent_data();
-
+  // await seed_delete_dependent_data();
 
   const [growth, life, plant_sz, plant_st, shpe, soil, sun, user, water, zn] = [
     await seed_growth_habit(),
@@ -31,9 +29,8 @@ const seed = async () => {
     await seed_zone(),
   ];
 
-
-  zn.forEach((zne) => {console.log(`zone: ${zne}`)});
-  console.log(`user_role: ${user}`);
+  // zn.forEach((zne) => {console.log(`zone: ${zne}`)});
+  // console.log(`user_role: ${user}`);
 
   const [customer1, customer2, customer3] = [
     seed_user({

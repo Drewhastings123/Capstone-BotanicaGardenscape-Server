@@ -20,7 +20,7 @@ const seed_user = async ({
       user_role_id,
     });
 
-    console.log("new user", returnnInfo.registerUser);
+    console.log("new user", returnInfo.registerUser);
 
     return returnInfo.registerUser;
   } catch (err) {
