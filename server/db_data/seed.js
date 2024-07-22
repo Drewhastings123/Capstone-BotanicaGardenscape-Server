@@ -14,7 +14,18 @@ const { seed_delete_dependent_data } = require("./delete_dependent_data.js");
 const { seed_user } = require("./user.js");
 
 const seed = async () => {
+
+
+
+  // Function exists - may be out of date
   // await seed_delete_dependent_data();
+  // Design Decision (7/22):  
+  //   Use Prisma onDelete: Cascade and OnUpdate: Cascade 
+  //   for foreign relation deletion management
+  //   so the DB will manage the dependency delete order.
+  //   This is good for development and expediency, may be a bad decision
+  //   for production environment application
+
 
   const [growth, life, plant_sz, plant_st, shpe, soil, sun, user, water, zn] = [
     await seed_growth_habit(),
@@ -28,9 +39,6 @@ const seed = async () => {
     await seed_water_requirement(),
     await seed_zone(),
   ];
-
-  // zn.forEach((zne) => {console.log(`zone: ${zne}`)});
-  // console.log(`user_role: ${user}`);
 
   const [customer1, customer2, customer3] = [
     seed_user({
@@ -58,7 +66,7 @@ const seed = async () => {
       user_role_id: user[1].id,
     }),
   ];
-
+  
   // TO DO Create some
   // development data
   // plants
