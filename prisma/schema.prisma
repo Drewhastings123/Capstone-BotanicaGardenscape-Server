@@ -1,0 +1,185 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model address {
+  id             String  @id @db.Uuid
+  address_line_1 String? @db.VarChar(64)
+  address_line_2 String? @db.VarChar(64)
+  city           String? @db.VarChar(64)
+  zip            String? @db.VarChar(64)
+  state          String? @db.VarChar(64)
+  user_id        String  @db.Uuid
+  user           user    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model garden {
+  id                   String              @id @db.Uuid
+  description          String?             @default("garden") @db.VarChar(255)
+  user_id              String              @db.Uuid
+  zone_id              String              @db.Uuid
+  shape_id             String              @db.Uuid
+  water_requirement_id String              @db.Uuid
+  sun_requirement_id   String              @db.Uuid
+  soil_requirement_id  String              @db.Uuid
+  shape                shape               @relation(fields: [shape_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  soil_requirement     soil_requirement    @relation(fields: [soil_requirement_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  sun_requirement      sun_requirement     @relation(fields: [sun_requirement_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user                 user                @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  water_requirement    water_requirement   @relation(fields: [water_requirement_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  zone                 zone                @relation(fields: [zone_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  garden_dimensions    garden_dimensions[]
+  garden_plants        garden_plants[]
+}
+
+model garden_dimensions {
+  id                 String @id @db.Uuid
+  garden_id          String @db.Uuid
+  sequence_value     Int
+  measurement_inches Float
+  garden             garden @relation(fields: [garden_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model garden_plants {
+  id               String       @id @db.Uuid
+  plant_location_x Int
+  plant_location_y Int
+  plant_status_id  String       @db.Uuid
+  plant_id         String       @db.Uuid
+  garden_id        String       @db.Uuid
+  garden           garden       @relation(fields: [garden_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  plant            plant        @relation(fields: [plant_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  plant_status     plant_status @relation(fields: [plant_status_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model growth_habit {
+  id          String  @id @db.Uuid
+  habit_name  String  @db.VarChar(64)
+  description String  @db.VarChar(255)
+  plant       plant[]
+}
+
+model life_cycle {
+  id              String  @id @db.Uuid
+  life_cycle_name String  @db.VarChar(64)
+  description     String  @db.VarChar(255)
+  plant           plant[]
+}
+
+model plant {
+  id                   String            @id @db.Uuid
+  max_height           String            @db.VarChar(64)
+  max_width            String            @db.VarChar(64)
+  bloom_time           String            @db.VarChar(255)
+  available_for_sale   Boolean           @default(false)
+  zone_id              String            @db.Uuid
+  water_requirement_id String            @db.Uuid
+  sun_requirement_id   String            @db.Uuid
+  soil_requirement_id  String            @db.Uuid
+  growth_habit_id      String            @db.Uuid
+  life_cycle_id        String            @db.Uuid
+  garden_plants        garden_plants[]
+  growth_habit         growth_habit      @relation(fields: [growth_habit_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  life_cycle           life_cycle        @relation(fields: [life_cycle_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  soil_requirement     soil_requirement  @relation(fields: [soil_requirement_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  sun_requirement      sun_requirement   @relation(fields: [sun_requirement_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  water_requirement    water_requirement @relation(fields: [water_requirement_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  zone                 zone              @relation(fields: [zone_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  plant_inventory      plant_inventory[]
+}
+
+model plant_inventory {
+  id            String     @id @db.Uuid
+  plant_id      String     @db.Uuid
+  plant_size_id String     @db.Uuid
+  in_stock      Int        @default(0)
+  price         Float      @default(10.0)
+  plant         plant      @relation(fields: [plant_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  plant_size    plant_size @relation(fields: [plant_size_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([plant_id, in_stock, plant_size_id])
+}
+
+model plant_size {
+  id              String            @id @db.Uuid
+  size_name       String            @db.VarChar(64)
+  description     String?           @db.VarChar(255)
+  plant_inventory plant_inventory[]
+}
+
+model plant_status {
+  id            String          @id @db.Uuid
+  status_name   String          @db.VarChar(64)
+  description   String?         @db.VarChar(255)
+  garden_plants garden_plants[]
+}
+
+model shape {
+  id               String   @id @db.Uuid
+  shape_name       String   @db.VarChar(64)
+  description      String   @db.VarChar(255)
+  css_class        String   @db.VarChar(255)
+  no_of_dimensions Int @default(1)
+  garden           garden[]
+}
+
+model soil_requirement {
+  id          String   @id @db.Uuid
+  soil_name   String   @db.VarChar(64)
+  description String   @db.VarChar(255)
+  garden      garden[]
+  plant       plant[]
+}
+
+model sun_requirement {
+  id          String   @id @db.Uuid
+  sun_name    String   @db.VarChar(64)
+  description String   @db.VarChar(255)
+  garden      garden[]
+  plant       plant[]
+}
+
+model user {
+  id           String   @id @db.Uuid
+  firstname    String   @db.VarChar(64)
+  lastname     String   @db.VarChar(64)
+  username     String   @unique @db.VarChar(32)
+  password     String   @db.VarChar(255)
+  phone_number String?  @db.VarChar(64)
+  email        String   @unique @db.VarChar(64)
+  user_role_id String   @db.Uuid
+  zone_id      String    @db.Uuid
+  zone         zone      @relation(fields: [zone_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user_role    user_role @relation(fields: [user_role_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  address      address[]
+  garden       garden[]
+}
+
+model user_role {
+  id        String @id @db.Uuid
+  role_name String @db.VarChar(64)
+  user      user[]
+}
+
+model water_requirement {
+  id          String   @id @db.Uuid
+  water_name  String   @db.VarChar(64)
+  description String   @db.VarChar(255)
+  garden      garden[]
+  plant       plant[]
+}
+
+model zone {
+  id          String   @id @db.Uuid
+  zone_name   String   @db.VarChar(64)
+  temp_range  String   @db.VarChar(64)
+  description String   @db.VarChar(255)
+  garden      garden[]
+  plant       plant[]
+  user        user[]
+}
