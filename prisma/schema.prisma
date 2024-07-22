@@ -15,7 +15,7 @@ model address {
   zip            String? @db.VarChar(64)
   state          String? @db.VarChar(64)
   user_id        String  @db.Uuid
-  user           user    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user           user    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model garden {
@@ -27,12 +27,12 @@ model garden {
   water_requirement_id String              @db.Uuid
   sun_requirement_id   String              @db.Uuid
   soil_requirement_id  String              @db.Uuid
-  shape                shape               @relation(fields: [shape_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  soil_requirement     soil_requirement    @relation(fields: [soil_requirement_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  sun_requirement      sun_requirement     @relation(fields: [sun_requirement_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  user                 user                @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  water_requirement    water_requirement   @relation(fields: [water_requirement_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  zone                 zone                @relation(fields: [zone_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  shape                shape               @relation(fields: [shape_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  soil_requirement     soil_requirement    @relation(fields: [soil_requirement_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  sun_requirement      sun_requirement     @relation(fields: [sun_requirement_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user                 user                @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  water_requirement    water_requirement   @relation(fields: [water_requirement_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  zone                 zone                @relation(fields: [zone_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   garden_dimensions    garden_dimensions[]
   garden_plants        garden_plants[]
 }
@@ -42,7 +42,7 @@ model garden_dimensions {
   garden_id          String @db.Uuid
   sequence_value     Int
   measurement_inches Float
-  garden             garden @relation(fields: [garden_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  garden             garden @relation(fields: [garden_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model garden_plants {
@@ -52,9 +52,9 @@ model garden_plants {
   plant_status_id  String       @db.Uuid
   plant_id         String       @db.Uuid
   garden_id        String       @db.Uuid
-  garden           garden       @relation(fields: [garden_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  plant            plant        @relation(fields: [plant_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  plant_status     plant_status @relation(fields: [plant_status_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  garden           garden       @relation(fields: [garden_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  plant            plant        @relation(fields: [plant_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  plant_status     plant_status @relation(fields: [plant_status_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model growth_habit {
@@ -84,12 +84,12 @@ model plant {
   growth_habit_id      String            @db.Uuid
   life_cycle_id        String            @db.Uuid
   garden_plants        garden_plants[]
-  growth_habit         growth_habit      @relation(fields: [growth_habit_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  life_cycle           life_cycle        @relation(fields: [life_cycle_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  soil_requirement     soil_requirement  @relation(fields: [soil_requirement_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  sun_requirement      sun_requirement   @relation(fields: [sun_requirement_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  water_requirement    water_requirement @relation(fields: [water_requirement_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  zone                 zone              @relation(fields: [zone_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  growth_habit         growth_habit      @relation(fields: [growth_habit_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  life_cycle           life_cycle        @relation(fields: [life_cycle_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  soil_requirement     soil_requirement  @relation(fields: [soil_requirement_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  sun_requirement      sun_requirement   @relation(fields: [sun_requirement_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  water_requirement    water_requirement @relation(fields: [water_requirement_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  zone                 zone              @relation(fields: [zone_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   plant_inventory      plant_inventory[]
 }
 
@@ -99,8 +99,8 @@ model plant_inventory {
   plant_size_id String     @db.Uuid
   in_stock      Int        @default(0)
   price         Float      @default(10.0)
-  plant         plant      @relation(fields: [plant_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  plant_size    plant_size @relation(fields: [plant_size_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  plant         plant      @relation(fields: [plant_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  plant_size    plant_size @relation(fields: [plant_size_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@unique([plant_id, in_stock, plant_size_id])
 }
@@ -153,8 +153,8 @@ model user {
   email        String   @unique @db.VarChar(64)
   user_role_id String   @db.Uuid
   zone_id      String    @db.Uuid
-  zone         zone      @relation(fields: [zone_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  user_role    user_role @relation(fields: [user_role_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  zone         zone      @relation(fields: [zone_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_role    user_role @relation(fields: [user_role_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   address      address[]
   garden       garden[]
 }
