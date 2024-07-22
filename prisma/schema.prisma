@@ -73,6 +73,8 @@ model life_cycle {
 
 model plant {
   id                   String            @id @db.Uuid
+  plant_name           String            @db.VarChar(64)
+  plant_description    String            @db.VarChar(255) 
   max_height           String            @db.VarChar(64)
   max_width            String            @db.VarChar(64)
   bloom_time           String            @db.VarChar(255)

@@ -7,17 +7,27 @@ const seed_plant_size = async () => {
     const plant_size = [
       {
         id: uuid.v4(),
-        size_name: "Own",
+        size_name: "4.5in",
         description: " ",
       },
       {
         id: uuid.v4(),
-        size_name: "Purchase",
+        size_name: "6in",
         description: " ",
       },
       {
         id: uuid.v4(),
-        size_name: "Save For later",
+        size_name: "8in",
+        description: " ",
+      },
+      {
+        id: uuid.v4(),
+        size_name: "10in",
+        description: " ",
+      },
+      {
+        id: uuid.v4(),
+        size_name: "1 gal",
         description: " ",
       },
     ];
