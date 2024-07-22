@@ -12,20 +12,17 @@ const { seed_water_requirement } = require("./water_requirement.js");
 const { seed_zone } = require("./zone.js");
 const { seed_delete_dependent_data } = require("./delete_dependent_data.js");
 const { seed_user } = require("./user.js");
+const { seed_plant } = require("./plant.js");
 
 const seed = async () => {
-
-
-
   // Function exists - may be out of date
   // await seed_delete_dependent_data();
-  // Design Decision (7/22):  
-  //   Use Prisma onDelete: Cascade and OnUpdate: Cascade 
+  // Design Decision (7/22):
+  //   Use Prisma onDelete: Cascade and OnUpdate: Cascade
   //   for foreign relation deletion management
   //   so the DB will manage the dependency delete order.
   //   This is good for development and expediency, may be a bad decision
   //   for production environment application
-
 
   const [growth, life, plant_sz, plant_st, shpe, soil, sun, user, water, zn] = [
     await seed_growth_habit(),
@@ -66,11 +63,54 @@ const seed = async () => {
       user_role_id: user[1].id,
     }),
   ];
-  
+
+  const [plant1, plant2, plant3, plant4] = [
+    seed_plant({
+      plant_name: "Echinacea",
+      plant_description:
+        "Cone Flower - attracts butterflies and songbirds, zones 3 - 9",
+      max_height: "24in",
+      max_width: "20in",
+      bloom_time: "Summer, Fall",
+      zone_id: zn[5].id,
+      water_requirement_id: water[0].id,
+      sun_requirement_id: sun[0].id,
+      soil_requirement_id: soil[0].id,
+      growth_habit_id: growth[0].id,
+      life_cycle_id: life[1].id,
+    }),
+    seed_plant({
+      plant_name: "Monarda",
+      plant_description:
+        "Bee Balm - attracts butterflies and songbirds, zones 3 - 9",
+      max_height: "36in - 48in",
+      max_width: "20in",
+      bloom_time: "Summer",
+      zone_id: zn[5].id,
+      water_requirement_id: water[0].id,
+      sun_requirement_id: sun[0].id,
+      soil_requirement_id: soil[0].id,
+      growth_habit_id: growth[0].id,
+      life_cycle_id: life[1].id,
+    }),
+    seed_plant({
+      plant_name: "Euphorbia Polychroma",
+      plant_description: "Cushion Spurge - attracts butterflies, zones 3 - 9",
+      max_height: "18in",
+      max_width: "28in",
+      bloom_time: "Summer",
+      zone_id: zn[7].id,
+      water_requirement_id: water[0].id,
+      sun_requirement_id: sun[0].id,
+      soil_requirement_id: soil[3].id,
+      growth_habit_id: growth[0].id,
+      life_cycle_id: life[1].id,
+    }),
+  ];
   // TO DO Create some
   // development data
   // plants
-  // users
+
   // gardens and etc
 };
 
