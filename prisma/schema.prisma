@@ -148,7 +148,6 @@ model user {
   id           String   @id @db.Uuid
   firstname    String   @db.VarChar(64)
   lastname     String   @db.VarChar(64)
-  username     String   @unique @db.VarChar(32)
   password     String   @db.VarChar(255)
   phone_number String?  @db.VarChar(64)
   email        String   @unique @db.VarChar(64)
