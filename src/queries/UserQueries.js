@@ -2,44 +2,45 @@ const { bcrypt, prisma, jwt, uuid } = require("../shared/shared");
 
 const registerQuery = async ({
   email,
-  username,
   password,
   firstname,
   lastname,
   zone_id,
   user_role_id,
 }) => {
+  const hashPassword = await bcrypt.hash(password, 10);
+  try {
+    const registerUser = await prisma.user.create({
+      data: {
+        id: uuid.v4(),
+        email,
+        password: hashPassword,
+        firstname,
+        lastname,
+        zone_id,
+        user_role_id,
+      },
+    });
+    console.log(hashPassword);
 
-  const hashPassword = password; // await bcrypt.hash(password, 10);
-
-  const registerUser = await prisma.user.create({
-    data: {
-      id: uuid.v4(),
-      email,
-      password: hashPassword,
-      firstname,
-      lastname,
-      zone_id,
-      user_role_id,
-    },
-  });
-  console.log(hashPassword);
-
-  const token = jwt.sign(
-    {
-      id: registerUser.id,
-    },
-    process.env.WEB_TOKEN,
-    {
-      expiresIn: "1h",
-    }
-  );
-  return { token, registerUser };
+    const token = jwt.sign(
+      {
+        id: registerUser.id,
+      },
+      process.env.WEB_TOKEN,
+      {
+        expiresIn: "1h",
+      }
+    );
+    return { token, registerUser };
+  } catch (error) {
+    return error;
+  }
 };
 
-const loginQuery = async ({ username, password }) => {
+const loginQuery = async ({ email, password }) => {
   try {
-    console.log(username);
+    console.log(email);
     console.log(password);
     const user = await prisma.user.findUnique({
       where: {
@@ -131,7 +132,7 @@ const getAllUsersQuery = async () => {
 
 const updateUserQuery = async (id, body) => {
   // need separate reset functionality
-  const hashPassword = await bcrypt.hash(body.password, 10);
+  // const hashPassword = await bcrypt.hash(body.password, 10);
 
   try {
     const updateUser = await prisma.user.update({
