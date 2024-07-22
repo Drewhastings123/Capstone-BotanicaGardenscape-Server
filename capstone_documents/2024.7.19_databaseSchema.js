@@ -108,6 +108,8 @@ CREATE TABLE user(
 
 CREATE TABLE plant(
     id UUID PRIMARY KEY,
+    plant_name VARCHAR(64) NOT NULL,
+    plant_description VARCHAR(255) NOT NULL,
 
     max_height VARCHAR(64) NOT NULL,
     max_width VARCHAR(64) NOT NULL,
