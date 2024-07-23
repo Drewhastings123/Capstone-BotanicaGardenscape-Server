@@ -16,10 +16,8 @@ const seed_plant = async ({
   life_cycle_id,
 }) => {
   try {
-    // sun_requirement
-    await prisma.plant.deleteMany();
-
-    const plant = {
+    // plant
+      const plant = {
       id: uuid.v4(),
       plant_name: plant_name,
       plant_description: plant_description,
