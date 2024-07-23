@@ -14,9 +14,11 @@ app.listen(PORT, () => {
 });
 
 const userRoutes = require("../src/routes/UserRoutes");
+const plantRoutes = require("../src/routes/PlantRoutes");
 //const gardenRoutes = require("../src/routes/GardenRoutes");
 //const cartRoutes = require("../src/routes/CartRoutes");
 
 app.use("/api/botanica/gardenscape", userRoutes);
+app.use("/api/botanica/gardenscape", plantRoutes);
 //app.use("/api/botanica/gardenscape", gardenRoutes);
 //app.use("/api/botanica/gardenscape", cartRoutes);

@@ -111,6 +111,8 @@ const seed = async () => {
   // development data
   // plants
 
+  console.log(plant2);
+
   // gardens and etc
 };
 
