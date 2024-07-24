@@ -18,7 +18,11 @@ const plantRoutes = require("../src/routes/PlantRoutes");
 const gardenRoutes = require("../src/routes/GardenRoutes");
 //const cartRoutes = require("../src/routes/CartRoutes");
 
+const referenceRoutes = require("../src/routes/ReferenceRoutes");
+
 app.use("/api/botanica/gardenscape", userRoutes);
 app.use("/api/botanica/gardenscape", plantRoutes);
 app.use("/api/botanica/gardenscape", gardenRoutes);
 //app.use("/api/botanica/gardenscape", cartRoutes);
+
+app.use("/api/botanica/gardenscape", referenceRoutes);
