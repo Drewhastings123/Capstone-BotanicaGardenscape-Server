@@ -26,6 +26,6 @@ const isLoggedInAdmin = async (req, res, next) => {
 };
 
 // get all the reference data
-routes.get("/reference/", isLoggedInAdmin, getAllReference);
+routes.get("/reference/", getAllReference);
 
 module.exports = routes;
