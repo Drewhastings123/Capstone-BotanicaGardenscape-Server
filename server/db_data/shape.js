@@ -9,19 +9,19 @@ const seed_shape = async () => {
         id: uuid.v4(),
         shape_name: "Square",
         description: "4 sides",
-        css_class: "theSquare",
+        css_class: "square",
       },
       {
         id: uuid.v4(),
         shape_name: "Circle",
         description: "0 sides",
-        css_class: "theCircle",
+        css_class: "circle",
       },
       {
         id: uuid.v4(),
         shape_name: "Rectangle",
         description: "4 sides",
-        css_class: "theRectangle",
+        css_class: "rectangle",
       },
     ];
     await prisma.shape.createMany({ data: shapes });
