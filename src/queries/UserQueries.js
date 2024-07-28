@@ -17,6 +17,7 @@ const registerQuery = async ({
         password: hashPassword,
         firstname,
         lastname,
+        phone_number,
         zone_id,
         user_role_id,
       },
