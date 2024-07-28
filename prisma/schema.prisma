@@ -85,6 +85,8 @@ model plant {
   soil_requirement_id  String            @db.Uuid
   growth_habit_id      String            @db.Uuid
   life_cycle_id        String            @db.Uuid
+  image_path           String            @default("src/assets/pants/") @db.VarChar(255)
+  image_name           String?           @db.VarChar(64)
   garden_plants        garden_plants[]
   growth_habit         growth_habit      @relation(fields: [growth_habit_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   life_cycle           life_cycle        @relation(fields: [life_cycle_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
