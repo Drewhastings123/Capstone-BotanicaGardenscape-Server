@@ -13,6 +13,7 @@ const { seed_zone } = require("./zone.js");
 const { seed_delete_dependent_data } = require("./delete_dependent_data.js");
 const { seed_user } = require("./user.js");
 const { seed_plant } = require("./plant.js");
+const { seed_plant2 } = require("./plant2.js");
 
 const seed = async () => {
   // Function exists - may be out of date
@@ -24,18 +25,19 @@ const seed = async () => {
   //   This is good for development and expediency, may be a bad decision
   //   for production environment application
 
-  const [growth, life, plant_sz, plant_st, shpe, soil, sun, user, water, zn] = [
-    await seed_growth_habit(),
-    await seed_life_cycle(),
-    await seed_plant_size(),
-    await seed_plant_status(),
-    await seed_shape(),
-    await seed_soil_requirement(),
-    await seed_sun_requirement(),
-    await seed_user_role(),
-    await seed_water_requirement(),
-    await seed_zone(),
-  ];
+  const [growth, life, plant_sz, plant_st, shape, soil, sun, user, water, zn] =
+    [
+      await seed_growth_habit(),
+      await seed_life_cycle(),
+      await seed_plant_size(),
+      await seed_plant_status(),
+      await seed_shape(),
+      await seed_soil_requirement(),
+      await seed_sun_requirement(),
+      await seed_user_role(),
+      await seed_water_requirement(),
+      await seed_zone(),
+    ];
 
   const [customer1, customer2, customer3] = [
     seed_user({
@@ -107,6 +109,7 @@ const seed = async () => {
       life_cycle_id: life[1].id,
     }),
   ];
+
   // TO DO Create some
   // development data
   // plants

@@ -5,6 +5,7 @@ const registerQuery = async ({
   password,
   firstname,
   lastname,
+  phone_number,
   zone_id,
   user_role_id,
 }) => {
