@@ -27,6 +27,19 @@ const createGardenQuery = async ({
     return error;
   }
 };
+const getMyGardenQuery = async ({ user_id }) => {
+  try {
+    const gardenInfo = await prisma.garden.findMany({
+      where: {
+        user_id,
+      },
+    });
+
+    return { gardenInfo };
+  } catch (error) {
+    return error;
+  }
+};
 
 const getUserGardenQuery = async ({ user_id, garden_id }) => {
   try {
@@ -135,7 +148,6 @@ const updateGardenPlantQuery = async (garden_plants_id, body) => {
         plant_status_id: body.plant_status_id,
         water_requirement_id: body.water_requirement_id,
         plant_id: body.plant_id,
-       
       },
     });
     return updateGardenPlant;
@@ -152,4 +164,5 @@ module.exports = {
   addPlantQuery,
   deleteGardenPlantQuery,
   updateGardenPlantQuery,
+  getMyGardenQuery,
 };
