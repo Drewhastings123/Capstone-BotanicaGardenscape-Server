@@ -4,6 +4,7 @@ const {
   findUserByToken,
   register,
   login,
+  refresh,
   getAllUsers,
   getUser,
   deleteUser,
@@ -39,6 +40,9 @@ routes.post("/register", register);
 // "login" a user using username and password
 // - return token and user info
 routes.post("/login", login);
+
+// "refresh" get a user who is already logged in with the token
+routes.get("/refresh", isLoggedIn, refresh);
 
 // update a particular user based on id - only their top tier of information
 routes.put("/users/:id", isLoggedIn, updateUser);
