@@ -24,7 +24,7 @@ const isLoggedIn = async (req, res, next) => {
 
 routes.post("/garden", isLoggedIn, createGarden);
 //Get all data from Garden, the garden information as well as the list of plants
-routes.get("/garden/:user_id", isLoggedIn, myGarden)
+routes.get("/gardens/:user_id", isLoggedIn, myGarden)
 routes.get("/garden/:user_id/myGarden/:garden_id", isLoggedIn, userGarden);
 routes.put("/garden/:garden_id", isLoggedIn, updateGarden);
 routes.delete("/garden/:garden_id", isLoggedIn, deleteGarden);
