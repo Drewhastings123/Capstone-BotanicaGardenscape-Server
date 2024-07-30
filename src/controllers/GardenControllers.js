@@ -6,6 +6,7 @@ const {
   addPlantQuery,
   deleteGardenPlantQuery,
   updateGardenPlantQuery,
+  getMyGardenQuery,
 } = require("../queries/GardenQueries");
 
 const createGarden = async (req, res, next) => {
@@ -16,6 +17,10 @@ const createGarden = async (req, res, next) => {
 const userGarden = async (req, res) => {
   //   console.log("userGarden", req.params);
   const returnInfo = await getUserGardenQuery(req.params);
+  res.send(returnInfo);
+};
+const myGarden = async (req, res) => {
+  const returnInfo = await getMyGardenQuery(req.params);
   res.send(returnInfo);
 };
 
@@ -65,4 +70,5 @@ module.exports = {
   addPlant,
   deleteGardenPlant,
   updateGardenPlant,
+  myGarden,
 };
