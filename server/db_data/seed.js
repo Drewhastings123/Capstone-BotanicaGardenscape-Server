@@ -13,7 +13,9 @@ const { seed_zone } = require("./zone.js");
 const { seed_delete_dependent_data } = require("./delete_dependent_data.js");
 const { seed_user } = require("./user.js");
 const { seed_plant } = require("./plant.js");
-const { seed_plant2 } = require("./plant2.js");
+const { additional_plants } = require("./additional_plants.js");
+const { additional_garden_plants } = require("./additional_garden_plants.js");
+// const { seed2 } = require("./seed2.js");
 
 const seed = async () => {
   // Function exists - may be out of date
@@ -38,33 +40,6 @@ const seed = async () => {
       await seed_water_requirement(),
       await seed_zone(),
     ];
-
-  const [customer1, customer2, customer3] = [
-    seed_user({
-      email: "monty@smallGardens.com",
-      password: "theMonty",
-      firstname: "Monty",
-      lastname: "Don",
-      zone_id: zn[5].id,
-      user_role_id: user[1].id,
-    }),
-    seed_user({
-      email: "renaee@highlandGardens.com",
-      password: "theHighlands",
-      firstname: "Renee",
-      lastname: "RayOfSunshine",
-      zone_id: zn[8].id,
-      user_role_id: user[0].id,
-    }),
-    seed_user({
-      email: "patti@plumnCreekGardens.com",
-      password: "thePlum",
-      firstname: "Patti",
-      lastname: "Plum",
-      zone_id: zn[15].id,
-      user_role_id: user[1].id,
-    }),
-  ];
 
   const [plant1, plant2, plant3, plant4] = [
     seed_plant({
@@ -110,17 +85,68 @@ const seed = async () => {
     }),
   ];
 
-  // TO DO Create some
-  // development data
-  // plants
+  additional_plants({
+    growth,
+    life,
+    plant_sz,
+    plant_st,
+    shape,
+    soil,
+    sun,
+    user,
+    water,
+    zn,
+  });
 
-  console.log(plant2);
-
-  // gardens and etc
+  const [customer1, customer2, customer3] = [
+    seed_user({
+      email: "monty@smallGardens.com",
+      password: "theMonty",
+      firstname: "Monty",
+      lastname: "Don",
+      zone_id: zn[5].id,
+      user_role_id: user[1].id,
+      g_description: "Lovely Lane",
+      g_zone_id: zn[12].id,
+      g_water_requirement_id: water[3].id,
+      g_sun_requirement_id: sun[2].id,
+      g_soil_requirement_id: soil[2].id,
+      g_shape_id: shape[0].id,
+    }),
+    seed_user({
+      email: "renaee@highlandGardens.com",
+      password: "theHighlands",
+      firstname: "Renee",
+      lastname: "RayOfSunshine",
+      zone_id: zn[8].id,
+      user_role_id: user[0].id,
+      g_description: "Pretty in Pink",
+      g_zone_id: zn[10].id,
+      g_water_requirement_id: water[1].id,
+      g_sun_requirement_id: sun[1].id,
+      g_soil_requirement_id: soil[1].id,
+      g_shape_id: shape[2].id,
+    }),
+    seed_user({
+      email: "patti@plumnCreekGardens.com",
+      password: "thePlum",
+      firstname: "Patti",
+      lastname: "Plum",
+      zone_id: zn[15].id,
+      user_role_id: user[1].id,
+      g_description: "Sunny for Days",
+      g_zone_id: zn[16].id,
+      g_water_requirement_id: water[0].id,
+      g_sun_requirement_id: sun[0].id,
+      g_soil_requirement_id: soil[1].id,
+      g_shape_id: shape[0].id,
+    }),
+  ];
 };
 
 if (require.main === module) {
   seed();
+  //seed2();
 }
 
 module.exports = seed;
