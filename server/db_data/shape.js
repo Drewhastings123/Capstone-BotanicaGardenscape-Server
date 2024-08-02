@@ -15,7 +15,7 @@ const seed_shape = async () => {
         id: uuid.v4(),
         shape_name: "Circle",
         description: "0 sides",
-        css_class: "circle",
+        css_class: "rounded-circle",
       },
       {
         id: uuid.v4(),

@@ -27,18 +27,24 @@ Botanic Gardenscape - FloraForma extraordinaire - Server
 
 - $ touch .gitignore // ignore files for github
 - $ touch .env // hidden variables
+  ------- DATABASE_URL="postgresql://postgres:@localhost:5432/garden_design?schema=public"
+  ------- WEB_TOKEN = process.env.JWT || "Its a secret garden";
 - $ edit package.json to add 'build', 'seed' and 'run' paths
+  ---- "server:dev": "nodemon server/index.js",
+  ---- "server": "node server/index.js",
+  ---- "seed": "node server/db_data/seed.js && node server/db_data/seed2.js "
 
 # Create Directory Tree
 
 - server - index.js
-- server/db_data/seed.js
+- server/db_data/seed.js ... + the additional seed files
 - src - controllers - UserControllers.js
 - src - queries - UserQueries.js
 - src - routes - UserRoutes.js
 - src - shared - shared.js
 
 # main table dependencies
+
 - garden_dimensions - dependent on garden
 - garden_plants - dependent on garden, plant
 - cart_garden_plants - not yet created
