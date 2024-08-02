@@ -7,13 +7,13 @@ const seed_soil_requirement = async () => {
     const soil_requirements = [
       {
         id: uuid.v4(),
-        soil_name: "Loam Soil'",
+        soil_name: "Loam Soil",
         description: "40% Sand, 40% Silt, 20% Clay",
       },
       {
         id: uuid.v4(),
         soil_name: "Clay Soil",
-        description: "50% Clay'",
+        description: "50% Clay",
       },
       {
         id: uuid.v4(),
